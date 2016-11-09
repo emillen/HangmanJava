@@ -39,7 +39,6 @@ public class ConnectionController {
     }
 
 
-
     @FXML
     private void tryConnection() {
 
@@ -62,10 +61,6 @@ public class ConnectionController {
     }
 
 
-    private void reset(){
-
-    }
-
     private void changeWarningText(String text) {
         warningText.setText(text);
         warningText.setVisible(true);
@@ -75,14 +70,13 @@ public class ConnectionController {
     private class SuccessHandler implements EventHandler<WorkerStateEvent> {
         @Override
         public void handle(WorkerStateEvent workerStateEvent) {
-            System.out.println("Did i get here?");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/startGameView.fxml"));
             Stage stage = (Stage) ipField.getParent().getScene().getWindow();
             Parent root;
             try {
                 root = (Parent) loader.load();
                 StartGameController controller = loader.<StartGameController>getController();
-                controller.init((Socket) workerStateEvent.getSource().getValue());
+                controller.init((Socket) workerStateEvent.getSource().getValue(), 0);
                 stage.setScene(new Scene(root));
                 stage.show();
 
