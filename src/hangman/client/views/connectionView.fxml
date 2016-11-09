@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane fx:controller="hangman.client.controllers.ConnectionController" hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hangman.client.controllers.ConnectionController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -35,21 +35,26 @@
                 <Font size="24.0" />
             </font>
         </Text>
-        <TextField onAction="#ipFieldAction" fx:id="ipField" alignment="CENTER_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <TextField fx:id="ipField" alignment="CENTER_RIGHT" onAction="#ipFieldAction" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <font>
                 <Font size="18.0" />
             </font>
         </TextField>
-        <TextField fx:id="portField" alignment="CENTER_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="2">
+        <TextField fx:id="portField" alignment="CENTER_RIGHT" onAction="#tryConnection" GridPane.columnIndex="1" GridPane.rowIndex="2">
             <font>
                 <Font size="18.0" />
             </font>
         </TextField>
-        <Button fx:id="connectButton" mnemonicParsing="false" text="Connect" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+        <Button fx:id="connectButton" mnemonicParsing="false" onAction="#tryConnection" text="Connect" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
+      <Text fx:id="warningText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
     </children>
     <padding>
         <Insets right="20.0" />
