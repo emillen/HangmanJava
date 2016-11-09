@@ -5,10 +5,10 @@ import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -16,9 +16,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.net.URL;
 import java.net.UnknownHostException;
-import java.util.ResourceBundle;
 
 public class ConnectionController {
 
@@ -30,12 +28,16 @@ public class ConnectionController {
     Text warningText;
     @FXML
     Button connectButton;
+    @FXML
+    ProgressIndicator progress;
+
 
     @FXML
     private void ipFieldAction() {
 
         portField.requestFocus();
     }
+
 
 
     @FXML
@@ -45,7 +47,9 @@ public class ConnectionController {
             InetAddress address = InetAddress.getByName(ipField.getText());
             int portNumber = Integer.parseInt(portField.getText());
             ConnectionService connectionService = new ConnectionService(address, portNumber);
+            warningText.setVisible(false);
             connectButton.setDisable(true);
+            progress.setVisible(true);
             connectionService.setOnFailed(new FailHandler());
             connectionService.setOnSucceeded(new SuccessHandler());
             connectionService.start();
@@ -57,6 +61,10 @@ public class ConnectionController {
         }
     }
 
+
+    private void reset(){
+
+    }
 
     private void changeWarningText(String text) {
         warningText.setText(text);
@@ -90,6 +98,7 @@ public class ConnectionController {
         public void handle(WorkerStateEvent workerStateEvent) {
             changeWarningText("Could not connect");
             connectButton.setDisable(false);
+            progress.setVisible(false);
         }
     }
 }
