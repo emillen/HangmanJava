@@ -9,6 +9,8 @@ public class GameServer extends Thread {
 
     private Socket clientSocket;
 
+
+
     public GameServer(Socket clientSocket) {
         this.clientSocket = clientSocket;
     }
@@ -16,5 +18,6 @@ public class GameServer extends Thread {
     @Override
     public void run() {
         super.run();
+        System.out.println("tjena");
     }
 }
