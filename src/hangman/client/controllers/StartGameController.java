@@ -1,6 +1,10 @@
 package hangman.client.controllers;
 
+import hangman.client.services.StartGameService;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.text.Text;
 
 import java.net.Socket;
@@ -22,7 +26,23 @@ public class StartGameController {
     }
 
     @FXML
-    public void newGame(){
-        System.out.println("I see you want new game bitch?");
+    public void newGame() {
+        StartGameService gameService = new StartGameService(socket);
+        gameService.start();
+    }
+
+
+    public class succesHandler implements EventHandler<WorkerStateEvent> {
+        @Override
+        public void handle(WorkerStateEvent workerStateEvent) {
+
+        }
+    }
+
+    public class failHandler implements EventHandler<WorkerStateEvent> {
+        @Override
+        public void handle(WorkerStateEvent workerStateEvent) {
+
+        }
     }
 }
