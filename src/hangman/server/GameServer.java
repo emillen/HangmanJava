@@ -1,8 +1,7 @@
 package hangman.server;
 
-import hangman.communication.GameResult;
 import hangman.communication.Message;
-import hangman.communication.TurnResult;
+import hangman.communication.Result;
 
 import java.io.*;
 import java.net.Socket;
@@ -14,57 +13,63 @@ public class GameServer extends Thread {
 
     private final int MAX_ATTEMPTS = 10;
 
+
     private Socket clientSocket;
     private WordHandler wordHandler;
     private int score;
 
-
     public GameServer(Socket clientSocket) {
         this.clientSocket = clientSocket;
-        score = 0;
     }
 
     @Override
     public void run() {
         super.run();
-
+        score = 0;
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            if (reader.readLine().equals(Message.START_GAME)) {
-                wordHandler = new WordHandler();
-                gameLoop();
-            }
-            throw new IOException();
+            initGame();
         } catch (IOException e) {
             System.out.println(clientSocket.toString() + " happened");
         }
-
     }
 
-    private void gameLoop() throws IOException {
+
+    // TODO: 2016-11-10 Create initGame so client can create new game without reset scores
+    private void initGame() throws IOException, NullPointerException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+        if (reader.readLine().equals(Message.START_GAME)) {
+            wordHandler = new WordHandler();
+            gameLoop();
+        }
+    }
+
+
+    private void gameLoop() throws IOException, NullPointerException {
 
         int attempts = MAX_ATTEMPTS;
+
+
         boolean inGame = true;
         BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
         while (inGame) {
 
-            sendTurnResult(attempts);
-
+            sendResult(attempts, wordHandler.getWordProgress(), Message.NEW_TURN);
             if (reader.readLine().equals(Message.GUESS)) {
                 String guess = reader.readLine();
 
                 if (wordHandler.charExists(guess)) {
                     if (wordHandler.wordFinished()) {
-                        sendGameResult(Message.WIN);
                         score++;
+                        sendResult(score, wordHandler.getFullWord(), Message.WIN);
+                        inGame = false;
                     }
                 } else {
                     attempts--;
-                    if(attempts <= 0){
-                        sendGameResult(Message.LOSE);
-                        inGame = false;
+                    if (attempts <= 0) {
                         score = 0;
+                        sendResult(score, wordHandler.getFullWord(), Message.LOSE);
+                        inGame = false;
                     }
                 }
 
@@ -72,32 +77,19 @@ public class GameServer extends Thread {
                 throw new IOException();
             }
         }
+        initGame();
     }
 
-    private void sendTurnResult(int attempts) throws IOException{
+    private void sendResult(int score, String word, String message) throws IOException {
 
-        TurnResult tr = new TurnResult();
-        tr.setAttemptsLeft(attempts);
-        tr.setCurrentWord(wordHandler.getWordProgress());
+        Result res = new Result();
+        res.setScore(score);
+        res.setCurrentWord(word);
+        res.setMessage(message);
 
-        PrintWriter writer = new PrintWriter(clientSocket.getOutputStream());
         ObjectOutputStream objOutput = new ObjectOutputStream(clientSocket.getOutputStream());
 
-        writer.println(Message.NEW_TURN);
-        objOutput.writeObject(tr);
-    }
-
-    private void sendGameResult(String message) throws IOException{
-
-        GameResult gr = new GameResult();
-        gr.setResult(message);
-        gr.setTotalScore(score);
-        gr.setWholeWord(wordHandler.getWordProgress());
-
-        PrintWriter writer = new PrintWriter(clientSocket.getOutputStream());
-        ObjectOutputStream objOutput = new ObjectOutputStream(clientSocket.getOutputStream());
-
-        writer.println(Message.GAME_OVER);
-        objOutput.writeObject(gr);
+        objOutput.writeObject(res);
+        objOutput.flush();
     }
 }

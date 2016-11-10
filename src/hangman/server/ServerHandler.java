@@ -15,13 +15,12 @@ public class ServerHandler {
 
     public static void main(String[] args) {
 
-
         try {
             ServerSocket serverSocket = new ServerSocket(PORT_NUMBER);
-            System.out.println( "IP address: " + InetAddress.getLocalHost().getHostAddress());
-            System.out.println( "Port Number: " + serverSocket.getLocalPort());
+            System.out.println("IP address: " + InetAddress.getLocalHost().getHostAddress());
+            System.out.println("Port Number: " + serverSocket.getLocalPort());
 
-            while(true) {
+            while (true) {
                 Socket clientSocket = serverSocket.accept();
                 Thread gameServer = new GameServer(clientSocket);
                 gameServer.setPriority(gameServer.getPriority() + 1);
@@ -29,9 +28,7 @@ public class ServerHandler {
             }
 
         } catch (IOException e) {
-            System.out.println(
-                    e.getMessage()
-            );
+            System.out.println(e.getMessage());
         }
     }
 }

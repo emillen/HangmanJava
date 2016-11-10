@@ -1,7 +1,7 @@
 package hangman.client.services;
 
 import hangman.communication.Message;
-import hangman.communication.TurnResult;
+import hangman.communication.Result;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
@@ -11,32 +11,29 @@ import java.net.Socket;
 /**
  * Created by daseel on 2016-11-09.
  */
-public class StartGameService extends Service<TurnResult>{
+public class StartGameService extends Service<Result> {
 
     Socket socket;
 
-    public StartGameService(Socket socket){
+    public StartGameService(Socket socket) {
         this.socket = socket;
     }
 
     @Override
-    protected Task<TurnResult> createTask() {
-        return new Task<TurnResult>() {
+    protected Task<Result> createTask() {
+        return new Task<Result>() {
             @Override
-            protected TurnResult call() throws Exception {
+            protected Result call() throws Exception {
 
                 PrintWriter writer = new PrintWriter(socket.getOutputStream());
                 writer.println(Message.START_GAME);
+                writer.flush();
                 return getResult();
             }
         };
     }
 
-    private TurnResult getResult() throws IOException, ClassNotFoundException{
-        BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        if(reader.readLine().equals(Message.NEW_TURN))
-            return (TurnResult) new ObjectInputStream(socket.getInputStream()).readObject();
-        else
-            throw new IOException();
+    private Result getResult() throws IOException, ClassNotFoundException {
+        return (Result) new ObjectInputStream(socket.getInputStream()).readObject();
     }
 }

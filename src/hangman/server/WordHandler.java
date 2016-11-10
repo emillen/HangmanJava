@@ -19,20 +19,22 @@ public class WordHandler {
     private HashMap<Character, ArrayList<Integer>> charPositions;
 
 
-    public WordHandler() throws IOException {
-
+    WordHandler() throws IOException {
+        progressWord = "";
         fullWord = getRandomWord().toLowerCase();
+        System.out.println(fullWord);
         charPositions = createCharPositions(fullWord);
     }
 
 
-    public boolean charExists(String charOrWord) {
+    boolean charExists(String charOrWord) {
 
         charOrWord = charOrWord.toLowerCase();
 
-        if (charOrWord.length() > 1)
-            return charOrWord.equals(fullWord);
-        else if (charOrWord.length() == 1 && charPositions.containsKey(charOrWord.charAt(0))) {
+        if (charOrWord.length() > 1 && charOrWord.equals(fullWord)) {
+            progressWord = charOrWord;
+            return true;
+        } else if (charOrWord.length() == 1 && charPositions.containsKey(charOrWord.charAt(0))) {
             makeProgress(charOrWord.charAt(0));
             return true;
         }
@@ -51,7 +53,7 @@ public class WordHandler {
         }
     }
 
-    public String getFullWord(){
+    String getFullWord() {
         return fullWord;
     }
 

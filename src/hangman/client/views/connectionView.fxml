@@ -11,57 +11,66 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hangman.client.controllers.ConnectionController">
+<GridPane hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+          nodeOrientation="LEFT_TO_RIGHT" prefHeight="400.0" prefWidth="600.0"
+          xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="hangman.client.controllers.ConnectionController">
     <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
     </rowConstraints>
     <children>
         <Label text="IP:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
             <font>
-                <Font size="18.0" />
-            </font></Label>
+                <Font size="18.0"/>
+            </font>
+        </Label>
         <Label text="Port:" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
             <font>
-                <Font size="18.0" />
-            </font></Label>
+                <Font size="18.0"/>
+            </font>
+        </Label>
         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Connect to server" GridPane.halignment="RIGHT">
             <font>
-                <Font size="24.0" />
+                <Font size="24.0"/>
             </font>
         </Text>
-        <TextField fx:id="ipField" alignment="CENTER_RIGHT" onAction="#ipFieldAction" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <TextField fx:id="ipField" alignment="CENTER_RIGHT" onAction="#ipFieldAction" GridPane.columnIndex="1"
+                   GridPane.rowIndex="1">
             <font>
-                <Font size="18.0" />
+                <Font size="18.0"/>
             </font>
         </TextField>
-        <TextField fx:id="portField" alignment="CENTER_RIGHT" onAction="#tryConnection" GridPane.columnIndex="1" GridPane.rowIndex="2">
+        <TextField fx:id="portField" alignment="CENTER_RIGHT" onAction="#tryConnection" GridPane.columnIndex="1"
+                   GridPane.rowIndex="2">
             <font>
-                <Font size="18.0" />
+                <Font size="18.0"/>
             </font>
         </TextField>
-        <Button fx:id="connectButton" mnemonicParsing="false" onAction="#tryConnection" text="Connect" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+        <Button fx:id="connectButton" mnemonicParsing="false" onAction="#tryConnection" text="Connect"
+                GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
             <font>
-                <Font size="18.0" />
+                <Font size="18.0"/>
             </font>
         </Button>
-      <Text fx:id="warningText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Text>
-      <ProgressIndicator fx:id="progress" prefHeight="36.0" prefWidth="55.0" visible="false" GridPane.rowIndex="3" />
+        <Text fx:id="warningText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" visible="false"
+              GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </Text>
+        <ProgressIndicator fx:id="progress" prefHeight="36.0" prefWidth="55.0" visible="false" GridPane.rowIndex="3"/>
     </children>
     <padding>
-        <Insets right="20.0" />
+        <Insets right="20.0"/>
     </padding>
     <opaqueInsets>
-        <Insets />
+        <Insets/>
     </opaqueInsets>
 </GridPane>

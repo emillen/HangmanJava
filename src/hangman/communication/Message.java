@@ -6,9 +6,8 @@ package hangman.communication;
 public class Message {
 
     public static final String START_GAME = "start game";
-    public static final String GAME_OVER = "game over";
     public static final String GUESS = "guess";
     public static final String NEW_TURN = "new turn";
-    public static final String WIN = "win";
-    public static final String LOSE = "lose";
+    public static final String WIN = "Win";
+    public static final String LOSE = "Lose";
 }

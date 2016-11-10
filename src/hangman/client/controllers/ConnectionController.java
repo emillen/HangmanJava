@@ -1,6 +1,8 @@
 package hangman.client.controllers;
 
+import hangman.client.ViewSwapper;
 import hangman.client.services.ConnectionService;
+import hangman.communication.Result;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -16,6 +18,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.URL;
 import java.net.UnknownHostException;
 
 public class ConnectionController {
@@ -70,20 +73,12 @@ public class ConnectionController {
     private class SuccessHandler implements EventHandler<WorkerStateEvent> {
         @Override
         public void handle(WorkerStateEvent workerStateEvent) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/startGameView.fxml"));
+            Socket socket = (Socket) workerStateEvent.getSource().getValue();
             Stage stage = (Stage) ipField.getParent().getScene().getWindow();
-            Parent root;
-            try {
-                root = (Parent) loader.load();
-                StartGameController controller = loader.<StartGameController>getController();
-                controller.init((Socket) workerStateEvent.getSource().getValue(), 0);
-                stage.setScene(new Scene(root));
-                stage.show();
+            URL url = getClass().getResource("../views/startGameView.fxml");
 
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
 
+            ViewSwapper.swap(socket, stage, url, new Result());
         }
     }
 
