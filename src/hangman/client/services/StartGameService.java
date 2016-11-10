@@ -13,7 +13,7 @@ import java.net.Socket;
  */
 public class StartGameService extends Service<Result> {
 
-    Socket socket;
+    private Socket socket;
 
     public StartGameService(Socket socket) {
         this.socket = socket;

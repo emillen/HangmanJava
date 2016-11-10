@@ -18,7 +18,7 @@ public class GameServer extends Thread {
     private WordHandler wordHandler;
     private int score;
 
-    public GameServer(Socket clientSocket) {
+    GameServer(Socket clientSocket) {
         this.clientSocket = clientSocket;
     }
 

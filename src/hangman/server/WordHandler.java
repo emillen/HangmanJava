@@ -57,11 +57,11 @@ public class WordHandler {
         return fullWord;
     }
 
-    public String getWordProgress() {
+    String getWordProgress() {
         return progressWord;
     }
 
-    public boolean wordFinished() {
+    boolean wordFinished() {
 
         return fullWord.equals(progressWord);
     }

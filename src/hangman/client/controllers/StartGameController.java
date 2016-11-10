@@ -61,7 +61,7 @@ public class StartGameController implements Controller{
     }
 
 
-    public class SuccesHandler implements EventHandler<WorkerStateEvent> {
+    private class SuccesHandler implements EventHandler<WorkerStateEvent> {
         @Override
         public void handle(WorkerStateEvent workerStateEvent) {
 
@@ -74,7 +74,7 @@ public class StartGameController implements Controller{
         }
     }
 
-    public class FailHandler implements EventHandler<WorkerStateEvent> {
+    private class FailHandler implements EventHandler<WorkerStateEvent> {
         @Override
         public void handle(WorkerStateEvent workerStateEvent) {
             // TODO: 2016-11-10 Handle unsuccessful game start
