@@ -1,4 +1,4 @@
-package hangman.client;
+package hangman.client.views;
 
 import hangman.client.controllers.Controller;
 import hangman.client.controllers.StartGameController;
