@@ -1,6 +1,6 @@
 package hangman.client.controllers;
 
-import hangman.client.ViewSwapper;
+import hangman.client.views.ViewSwapper;
 import hangman.client.services.GameService;
 import hangman.communication.Message;
 import hangman.communication.Result;

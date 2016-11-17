@@ -1,6 +1,6 @@
 package hangman.client.controllers;
 
-import hangman.client.ViewSwapper;
+import hangman.client.views.ViewSwapper;
 import hangman.client.services.StartGameService;
 import hangman.communication.Result;
 import javafx.concurrent.WorkerStateEvent;
